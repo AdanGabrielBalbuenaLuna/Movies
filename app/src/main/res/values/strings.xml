@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MoviesDevExpert</string>
+    <string name="button_toast">button</string>
+    <string name="hint_edit_text">hint</string>
 </resources>
