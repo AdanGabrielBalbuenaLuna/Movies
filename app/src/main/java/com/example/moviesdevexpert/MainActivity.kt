@@ -23,11 +23,12 @@ class MainActivity : AppCompatActivity() {
         // binding.recycler.layoutManager = LinearLayoutManager(this) --> layoutManager can be handled here
         binding.recycler.adapter = MoviesAdapter(
             listOf(
-                Movie("Title 1", "Cover 1"),
-                Movie("Title 2", "Cover 2"),
-                Movie("Title 3", "Cover 3"),
-                Movie("Title 4", "Cover 4"),
-                Movie("Title 5", "Cover 5")
+                Movie("Title 1", "https://loremflickr.com/320/240?lock=1"),
+                Movie("Title 2", "https://loremflickr.com/320/240?lock=2"),
+                Movie("Title 3", "https://loremflickr.com/320/240?lock=3"),
+                Movie("Title 4", "https://loremflickr.com/320/240?lock=4"),
+                Movie("Title 4", "https://loremflickr.com/320/240?lock=5"),
+                Movie("Title 5", "https://loremflickr.com/320/240?lock=6")
             )
         )
         Log.d("MainActivity", "onCreate")
