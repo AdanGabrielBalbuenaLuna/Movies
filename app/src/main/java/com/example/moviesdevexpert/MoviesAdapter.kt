@@ -1,12 +1,12 @@
 package com.example.moviesdevexpert
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.moviesdevexpert.databinding.ViewMovieListItemBinding
 
-class MoviesAdapter: RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter(private val movieList: List<Movie>) :
+    RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
         val binding = ViewMovieListItemBinding.inflate(
@@ -17,13 +17,17 @@ class MoviesAdapter: RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
         return MoviesViewHolder(binding)
     }
 
-    override fun getItemCount(): Int {
-        TODO("Not yet implemented")
-    }
+    override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        TODO("Not yet implemented")
+        holder.bind(movieList[position])
     }
 
-    class MoviesViewHolder(binding: ViewMovieListItemBinding): RecyclerView.ViewHolder(binding.root)
+    class MoviesViewHolder(private val binding: ViewMovieListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(movie: Movie) {
+            binding.title.text = movie.title
+
+        }
+    }
 }

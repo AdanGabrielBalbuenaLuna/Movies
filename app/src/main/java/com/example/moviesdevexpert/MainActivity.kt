@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.moviesdevexpert.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -19,7 +20,16 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.recycler.adapter = MoviesAdapter()
+        // binding.recycler.layoutManager = LinearLayoutManager(this) --> layoutManager can be handled here
+        binding.recycler.adapter = MoviesAdapter(
+            listOf(
+                Movie("Title 1", "Cover 1"),
+                Movie("Title 2", "Cover 2"),
+                Movie("Title 3", "Cover 3"),
+                Movie("Title 4", "Cover 4"),
+                Movie("Title 5", "Cover 5")
+            )
+        )
         Log.d("MainActivity", "onCreate")
     }
 
