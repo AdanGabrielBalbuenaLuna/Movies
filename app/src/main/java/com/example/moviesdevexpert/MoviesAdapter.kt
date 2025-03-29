@@ -4,12 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.moviesdevexpert.databinding.ViewMovieListItemBinding
 
 class MoviesAdapter: RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.view_movie_list_item, parent, false)
-        return MoviesViewHolder(view)
+        val binding = ViewMovieListItemBinding.inflate(
+            LayoutInflater.from(parent.context),
+            parent,
+            false
+        )
+        return MoviesViewHolder(binding)
     }
 
     override fun getItemCount(): Int {
@@ -20,5 +25,5 @@ class MoviesAdapter: RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
         TODO("Not yet implemented")
     }
 
-    class MoviesViewHolder(view: View): RecyclerView.ViewHolder(view)
+    class MoviesViewHolder(binding: ViewMovieListItemBinding): RecyclerView.ViewHolder(binding.root)
 }
