@@ -22,10 +22,7 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.button.setOnClickListener {
-            val messageInputText = binding.inputText.text
-            Toast.makeText(it.context, messageInputText, Toast.LENGTH_LONG).show()
-        }
+        binding.recycler.adapter = MoviesAdapter()
         Log.d("MainActivity", "onCreate")
     }
 
