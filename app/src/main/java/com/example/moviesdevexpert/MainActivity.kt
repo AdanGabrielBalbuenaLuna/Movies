@@ -22,12 +22,10 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-        binding.button.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(p0: View?) {
-                val messageInputText = binding.inputText.text.toString()
-                Toast.makeText(binding.root.context, messageInputText, Toast.LENGTH_LONG).show()
-            }
-        })
+        binding.button.setOnClickListener {
+            val messageInputText = binding.inputText.text
+            Toast.makeText(it.context, messageInputText, Toast.LENGTH_LONG).show()
+        }
         Log.d("MainActivity", "onCreate")
     }
 
