@@ -6,11 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesdevexpert.databinding.ViewMovieListItemBinding
 
-interface MovieClickedListener {
-    fun onMovieClicked(movie: Movie)
-}
 
-class MoviesAdapter(private val movieList: List<Movie>, private val movieClickedListener: MovieClickedListener) :
+class MoviesAdapter(private val movieList: List<Movie>, private val movieClickedListener: (Movie) -> Unit) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -27,9 +24,7 @@ class MoviesAdapter(private val movieList: List<Movie>, private val movieClicked
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
         val movie = movieList[position]
         holder.bind(movie)
-        holder.itemView.setOnClickListener{
-            movieClickedListener.onMovieClicked(movie)
-        }
+        holder.itemView.setOnClickListener{ movieClickedListener(movie)}
     }
 
     class MoviesViewHolder(private val binding: ViewMovieListItemBinding) :
