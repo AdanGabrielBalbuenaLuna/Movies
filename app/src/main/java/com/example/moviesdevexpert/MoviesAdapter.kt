@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.moviesdevexpert.databinding.ViewMovieListItemBinding
 
-class MoviesAdapter(private val movieList: List<Movie>) :
+interface MovieClickedListener {
+    fun onMovieClicked(movie: Movie)
+}
+
+class MoviesAdapter(private val movieList: List<Movie>, private val movieClickedListener: MovieClickedListener) :
     RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MoviesViewHolder {
@@ -21,7 +25,11 @@ class MoviesAdapter(private val movieList: List<Movie>) :
     override fun getItemCount(): Int = movieList.size
 
     override fun onBindViewHolder(holder: MoviesViewHolder, position: Int) {
-        holder.bind(movieList[position])
+        val movie = movieList[position]
+        holder.bind(movie)
+        holder.itemView.setOnClickListener{
+            movieClickedListener.onMovieClicked(movie)
+        }
     }
 
     class MoviesViewHolder(private val binding: ViewMovieListItemBinding) :
