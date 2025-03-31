@@ -1,15 +1,17 @@
 package com.example.moviesdevexpert
 
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.moviesdevexpert.databinding.ActivityMainBinding
 import com.example.moviesdevexpert.model.MovieDbClient
-import kotlin.concurrent.thread
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,23 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         binding.recycler.adapter = moviesAdapter
 
-        thread {
-            val apiKey = this.resources.getString(R.string.api_key)
+        lifecycleScope.launch {
+            val apiKey = getString(R.string.api_key)
             val listPopularMovies = MovieDbClient.service.listPopularMovies(apiKey)
-            val body = listPopularMovies.execute().body()
-
-            runOnUiThread {
-                body?.let {
-                    moviesAdapter.movieList = body.results
-                    moviesAdapter.notifyDataSetChanged()
-                    Log.d("MainActivity", "Image URL:${body.results[3].poster_path}")
-                }
-            }
+            moviesAdapter.movieList = listPopularMovies.results
+            moviesAdapter.notifyDataSetChanged()
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("MainActivity", "onDestroy")
     }
 }
