@@ -23,26 +23,25 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        binding.recycler.adapter = MoviesAdapter(
-            listOf(
-                Movie("Title 1", "https://loremflickr.com/320/240?lock=1"),
-                Movie("Title 2", "https://loremflickr.com/320/240?lock=2"),
-                Movie("Title 3", "https://loremflickr.com/320/240?lock=3"),
-                Movie("Title 4", "https://loremflickr.com/320/240?lock=4"),
-                Movie("Title 5", "https://loremflickr.com/320/240?lock=5"),
-                Movie("Title 6", "https://loremflickr.com/320/240?lock=6")
-            )
+        val moviesAdapter = MoviesAdapter(
+            emptyList()
         ) { movie ->
             Toast.makeText(this@MainActivity, movie.title, Toast.LENGTH_SHORT).show()
         }
+
+        binding.recycler.adapter = moviesAdapter
 
         thread {
             val apiKey = this.resources.getString(R.string.api_key)
             val listPopularMovies = MovieDbClient.service.listPopularMovies(apiKey)
             val body = listPopularMovies.execute().body()
-            body?.let {
-                Log.d("MainActivity", "Movie count: ${body.results.size}")
-                Log.d("MainActivity", "Response body: $it") // Show all the response
+
+            runOnUiThread {
+                body?.let {
+                    moviesAdapter.movieList = body.results
+                    moviesAdapter.notifyDataSetChanged()
+                    Log.d("MainActivity", "Image URL:${body.results[3].poster_path}")
+                }
             }
         }
     }
