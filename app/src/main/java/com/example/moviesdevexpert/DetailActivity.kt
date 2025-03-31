@@ -1,16 +1,22 @@
 package com.example.moviesdevexpert
 
 import android.os.Bundle
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.moviesdevexpert.databinding.ActivityMainBinding
+import com.example.moviesdevexpert.databinding.ActivityDetailBinding
 
 class DetailActivity : AppCompatActivity() {
+
+    companion object {
+        val EXTRA_TITLE = "DetailActivity:title"
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val binding = ActivityMainBinding.inflate(layoutInflater)
+        val binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val stringExtra = intent.getStringExtra(EXTRA_TITLE)
+
+        binding.textView.text = stringExtra
+
     }
 }
