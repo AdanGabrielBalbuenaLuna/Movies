@@ -2,7 +2,6 @@ package com.example.moviesdevexpert
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -43,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun navigateTo(movie: Movie) {
         val intent = Intent(this, DetailActivity::class.java)
-        intent.putExtra(DetailActivity.EXTRA_TITLE, movie.title)
+        intent.putExtra(DetailActivity.EXTRA_MOVIE, movie)
         startActivity(intent)
     }
 }
