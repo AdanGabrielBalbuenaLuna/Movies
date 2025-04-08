@@ -1,8 +1,11 @@
 package com.example.moviesdevexpert
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -13,6 +16,15 @@ import com.example.moviesdevexpert.model.MovieDbClient
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) {
+            isGranted ->
+            val message = if(isGranted) "Permision Granted" else "Permission Rejected"
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+
+        }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,6 +43,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.recycler.adapter = moviesAdapter
+
+        requestPermissionLauncher.launch(Manifest.permission.ACCESS_COARSE_LOCATION)
 
         lifecycleScope.launch {
             val apiKey = getString(R.string.api_key)
