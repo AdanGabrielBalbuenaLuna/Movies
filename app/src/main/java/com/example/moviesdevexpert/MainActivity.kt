@@ -20,9 +20,12 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) {
             isGranted ->
-            val message = if(isGranted) "Permision Granted" else "Permission Rejected"
+            val message = when {
+                isGranted -> "Permision Granted"
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_COARSE_LOCATION) -> "Should show Rationale"
+                else -> "Permission Rejected"
+            }
             Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
