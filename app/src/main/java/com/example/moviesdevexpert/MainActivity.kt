@@ -21,6 +21,10 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
+    companion object {
+        private const val DEFAULT_REGION = "US"
+    }
+
     private val moviesAdapter = MoviesAdapter(emptyList()) { movie ->
         navigateTo(movie)
     }
@@ -57,7 +61,7 @@ class MainActivity : AppCompatActivity() {
                 doRequestPopularMovies(getRegionFromLocation(it.result))
             }
         } else {
-            doRequestPopularMovies("US")
+            doRequestPopularMovies(DEFAULT_REGION)
         }
     }
 
@@ -71,7 +75,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun getRegionFromLocation(location: Location?): String {
         if (location == null) {
-            return "US"
+            return DEFAULT_REGION
         }
         val geoCoder = Geocoder(this)
         val result = geoCoder.getFromLocation(
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             location.longitude,
             1
         )
-        return result?.firstOrNull()?.countryCode ?: "US"
+        return result?.firstOrNull()?.countryCode ?: DEFAULT_REGION
     }
 
     private fun navigateTo(movie: Movie) {
